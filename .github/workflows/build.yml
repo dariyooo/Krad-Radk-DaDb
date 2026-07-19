@@ -1,0 +1,26 @@
+name: build-and-publish
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"   # weekly; upstream ships far less often
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python main.py
+      - name: Publish latest
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          files: |
+            out/krad-radk-dadb.zip
+            out/index.json

@@ -1,0 +1,7 @@
+[project]
+name = "krad-radk-dadb"
+version = "0.1.0"
+description = "Repackage KRADFILE/RADKFILE into a DaKanji DaDb radical archive."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []

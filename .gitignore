@@ -1,0 +1,8 @@
+# built archives are published as GitHub releases, not committed
+out/*.zip
+
+# python / uv
+tmp/
+__pycache__/
+.venv/
+*.pyc
