@@ -24,3 +24,12 @@ jobs:
           files: |
             out/krad-radk-dadb.zip
             out/index.json
+      - name: Log build to RELEASES.md
+        run: |
+          rev=$(python -c "import json; print(json.load(open('out/index.json'))['revision'])")
+          echo "- $(date -u '+%Y-%m-%d %H:%M UTC'): $rev" >> RELEASES.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add RELEASES.md
+          git commit -m "chore: log build $rev"
+          git push origin HEAD:main
