@@ -71,7 +71,10 @@ def _index_json(revision: str) -> bytes:
 
 def main() -> None:
     release = _latest_release()
-    revision = release["tag_name"]
+    # The upstream tag is `<version>+<timestamp>`. Yomitan compares a revision
+    # like this as a string, which orders the fixed-width timestamp correctly
+    # and the version wrongly (3.6.10 before 3.6.2).
+    revision = release["tag_name"].rpartition("+")[2]
 
     radk = _download_inner_json(_asset_url(release, "radkfile"))
     krad = _download_inner_json(_asset_url(release, "kradfile"))
